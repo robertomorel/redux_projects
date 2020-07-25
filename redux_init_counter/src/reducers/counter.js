@@ -1,3 +1,6 @@
+/* 
+  Indica como o state counter será alterado após escolha da action
+*/
 const counterReducer = (state = 0, action) => {
     switch(action.type){
         case 'INCREMENT':
