@@ -1,0 +1,61 @@
+- Redux -
+
+1. Conceitos
+    - Para gerenciamento de estado
+    - Implementação de Arquitetura de Software chamada Flux [Facebook]
+
+2. Fluxo Básico
+    - View [componente] -> Action [ação do usuário ou 'esfeito colateral'] -> Dispacher [roteador de ações] -> Store [estado] -> View [componente]     
+
+3. Princípios
+    - O Store onte única de verdade; todos os componente consultam do Store;
+    - Store é somente leitura, ou seja, os componentes não o manipulam diretamente;
+    - Toda manipulação no Store é feita numa função pura, chamada "reduce", que recebe o estado e ação e entrega uma nova store (novo estado).
+    
+4. Nomenclaturas
+    - Store: estado; armazenamento de estados de forma global;
+    - Action: descreve o que se quer fazer; 
+    - Reducer: descreve como a ação transforma o estado atual no próximo estado;
+    - Dispatch: responsável por executar a action.
+
+5. Exemplo
+---------------------------------------------
+import { createStore } from 'redux';
+
+// -- Actions (Just has a name)
+const increment = () => {
+  return {
+    type: 'INCREMENT'
+  }
+}
+
+const decrement = () => {
+  return {
+    type: 'DECREMENT'
+  }
+}
+
+// -- Reducer (logic)
+const counter = (state = 0, action) => {
+  switch(action.type){
+    case 'INCREMENT':
+      return state + 1;
+    case 'DECREMENT':
+      return state - 1;
+    default:
+      return state;  
+  }
+};
+
+let store = createStore(counter);
+
+// -- Display it in the console
+store.subscribe(() => console.log(store.getState()));
+
+// -- Displatch
+store.dispatch(increment());
+store.dispatch(decrement());
+store.dispatch(increment());
+store.dispatch(increment());
+store.dispatch(decrement());     
+---------------------------------------------
